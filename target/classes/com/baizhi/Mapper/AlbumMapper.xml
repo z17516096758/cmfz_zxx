@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <select id="selectAllByPages" resultType="Album">
+        select id,name,cover,score,author,announcer,count,resume,create_date createDate from c_album limit #{start},#{rows}
+    </select>
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from c_album
+    </select>
+    <select id="selectOne" parameterType="String" resultType="Album">
+        select id,name,cover,score,author,announcer,count,resume,create_date createDate from c_album where id=#{id}
+    </select>
+    <insert id="insert" parameterType="Album">
+        insert into c_album values(#{id},#{name},#{cover},#{score},#{author},#{announcer},#{count},#{resume},#{createDate})
+    </insert>
+    <update id="update" parameterType="Album">
+        update c_album
+        <set>
+            <if test="id!=null">id=#{id},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="cover!=null">cover=#{cover},</if>
+            <if test="score!=null">score=#{score},</if>
+            <if test="author!=null">author=#{author},</if>
+            <if test="announcer!=null">announcer=#{announcer},</if>
+            <if test="count!=null">count=#{count},</if>
+            <if test="resume!=null">resume=#{resume},</if>
+            <if test="createDate!=null">create_date=#{createDate},</if>
+        </set>
+        where id = #{id}
+    </update>
+    <delete id="delete" parameterType="String">
+        delete from c_album where id = #{id}
+    </delete>
+</mapper>

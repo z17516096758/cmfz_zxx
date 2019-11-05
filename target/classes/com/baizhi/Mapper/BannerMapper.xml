@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+    <select id="selectAllByPages" resultType="Banner">
+        select id,name,cover,description,status,create_date createDate from c_banner limit #{start},#{rows}
+    </select>
+    <insert id="insert" parameterType="Banner">
+        insert into c_banner values(#{id},#{name},#{cover},#{description},#{status},#{createDate})
+    </insert>
+    <delete id="delete" parameterType="String">
+        delete from c_banner where id=#{id}
+    </delete>
+    <update id="update" parameterType="Banner">
+        update c_banner
+          <set>
+            <if test="name!=null">name=#{name},</if>
+            <if test="cover!=null">cover=#{cover},</if>
+            <if test="description!=null">description=#{description},</if>
+            <if test="status!=null">status=#{status},</if>
+            <if test="createDate!=null">create_date=#{createDate},</if>
+          </set>
+        where id=#{id}
+    </update>
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from c_banner
+    </select>
+    <select id="selectOne" resultType="Banner" parameterType="String">
+        select name ,cover,description,status,create_date createDate from c_banner where id = #{id}
+    </select>
+</mapper>

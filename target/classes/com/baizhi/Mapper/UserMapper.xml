@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <select id="selectAllByPage" resultType="User">
+        select id,username,password,salt,nickname,phone,province,city,sign,photo,sex,create_date createDate from c_user where star_id=#{starId} limit #{start},#{rows}
+    </select>
+    <select id="selectAll" resultType="User">
+        select id,username,password,salt,nickname,phone,province,city,sign,photo,sex,create_date createDate from c_user
+    </select>
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from c_user
+    </select>
+    <select id="selectAllByPages" resultType="User">
+        select id,username,password,salt,nickname,phone,province,city,sign,photo,sex,create_date createDate from c_user limit #{start},#{rows}
+    </select>
+    <insert id="insert" parameterType="User">
+        insert into c_user values(#{id},#{username},#{password},#{salt},#{nickname},#{phone},#{province},#{city},#{sign},#{photo},#{sex},#{createDate},#{starId})
+    </insert>
+    <update id="update" parameterType="User">
+        update c_user
+        <set>
+            <if test="username!=null">username=#{username},</if>
+            <if test="password!=null">password=#{password},</if>
+            <if test="salt!=null">salt=#{salt},</if>
+            <if test="nickname!=null">nickname=#{nickname},</if>
+            <if test="phone!=null">phone=#{phone},</if>
+            <if test="province!=null">province=#{province},</if>
+            <if test="city!=null">city=#{city},</if>
+            <if test="sign!=null">sign=#{sign},</if>
+            <if test="photo!=null">photo=#{photo},</if>
+            <if test="sex!=null">sex=#{sex},</if>
+            <if test="createDate!=null">create_date=#{createDate},</if>
+        </set>
+    </update>
+    <delete id="delete" parameterType="String">
+        delete from c_user where id = #{id}
+    </delete>
+
+</mapper>

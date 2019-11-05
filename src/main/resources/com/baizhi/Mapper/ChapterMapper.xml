@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <select id="selectAllByPages" resultType="Chapter">
+        select id,name,size,time,create_date createDate
+        from c_chapter
+        where album_id = #{albumId}
+        limit #{start},#{rows}
+    </select>
+    <insert id="insert" parameterType="Chapter">
+        insert into c_chapter values(#{id},#{name},#{size},#{time},#{createDate},#{albumId})
+    </insert>
+    <update id="update" parameterType="Chapter">
+        update c_chapter
+        <set>
+            <if test="id!=null">id=#{id},</if>
+            <if test="name!=null">name=#{name},</if>
+            <if test="size!=null">size=#{size},</if>
+            <if test="time!=null">time=#{time},</if>
+            <if test="createDate!=null">create_date=#{createDate},</if>
+        </set>
+        where id=#{id}
+    </update>
+    <delete id="delete" parameterType="String">
+        delete from c_chapter where id = #{id}
+    </delete>
+    <select id="selectTotal" resultType="Integer">
+        select count(*) from c_chapter
+    </select>
+
+</mapper>
